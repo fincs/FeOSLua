@@ -1,0 +1,5 @@
+build/
+lib/
+*.elf
+*.fx2
+*.a
