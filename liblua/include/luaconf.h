@@ -93,6 +93,16 @@
 #define LUA_CPATH_DEFAULT \
 	".\\?.dll;"  LUA_CDIR"?.dll;" LUA_CDIR"loadall.dll"
 
+#elif defined(FEOS)
+#define LUA_ROOT	"/data/FeOS/Lua/"
+#define LUA_LDIR	LUA_ROOT "lib/"
+#define LUA_CDIR	LUA_ROOT "lib/native/"
+#define LUA_PATH_DEFAULT  \
+		"./?.lua;"  LUA_LDIR"?.lua;"  LUA_LDIR"?/init.lua;" \
+		            LUA_CDIR"?.lua;"  LUA_CDIR"?/init.lua"
+#define LUA_CPATH_DEFAULT \
+	"./?.fx2;"  LUA_CDIR"?.fx2;" LUA_CDIR"loadall.fx2"
+
 #else
 #define LUA_ROOT	"/usr/local/"
 #define LUA_LDIR	LUA_ROOT "share/lua/5.1/"
@@ -258,7 +268,7 @@
 ** CHANGE it if your stand-alone interpreter has a different name and
 ** your system is not able to detect that name automatically.
 */
-#define LUA_PROGNAME		"lua"
+#define LUA_PROGNAME		"feoslua"
 
 
 /*

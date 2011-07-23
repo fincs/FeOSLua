@@ -8,7 +8,6 @@
 ** implementation for Windows, and a stub for other systems.
 */
 
-#ifndef FEOS
 #include <stdlib.h>
 #include <string.h>
 
@@ -221,6 +220,41 @@ static lua_CFunction ll_sym (lua_State *L, void *lib, const char *sym) {
 /* }====================================================== */
 
 
+
+#elif defined(FEOS)
+/*
+** {======================================================================
+** Native FeOS Implementation
+** =======================================================================
+*/
+
+#include <feos.h>
+
+static void ll_unloadlib (void *lib) {
+  FeOS_FreeModule((instance_t) lib);
+}
+
+
+static void *ll_load (lua_State *L, const char *path) {
+  instance_t hInst = FeOS_LoadModule(path);
+  if (!hInst)
+  {
+    lua_pushliteral(L, "Can't load library!");
+    return NULL;
+  }
+  return (void*) hInst;
+}
+
+
+static lua_CFunction ll_sym (lua_State *L, void *lib, const char *sym) {
+  lua_CFunction psym = (lua_CFunction) FeOS_FindSymbol((instance_t) lib, sym);
+  if (!psym)
+  {
+    lua_pushfstring(L, "Symbol " LUA_QS " not found!", sym);
+	return NULL;
+  }
+  return psym;
+}
 
 #else
 /*
@@ -591,9 +625,12 @@ static int ll_seeall (lua_State *L) {
 
 static void setpath (lua_State *L, const char *fieldname, const char *envname,
                                    const char *def) {
+#ifndef FEOS
   const char *path = getenv(envname);
   if (path == NULL)  /* no environment variable? */
+#endif
     lua_pushstring(L, def);  /* use default */
+#ifndef FEOS
   else {
     /* replace ";;" by ";AUXMARK;" and then AUXMARK by default path */
     path = luaL_gsub(L, path, LUA_PATHSEP LUA_PATHSEP,
@@ -601,6 +638,7 @@ static void setpath (lua_State *L, const char *fieldname, const char *envname,
     luaL_gsub(L, path, AUXMARK, def);
     lua_remove(L, -2);
   }
+#endif
   setprogdir(L);
   lua_setfield(L, -2, fieldname);
 }
@@ -663,5 +701,3 @@ LUALIB_API int luaopen_package (lua_State *L) {
   lua_pop(L, 1);
   return 1;  /* return 'package' table */
 }
-
-#endif

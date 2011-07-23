@@ -16,9 +16,7 @@
 
 static const luaL_Reg lualibs[] = {
   {"", luaopen_base},
-#ifndef FEOS
   {LUA_LOADLIBNAME, luaopen_package},
-#endif
   {LUA_TABLIBNAME, luaopen_table},
   {LUA_IOLIBNAME, luaopen_io},
   {LUA_OSLIBNAME, luaopen_os},
