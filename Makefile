@@ -16,7 +16,6 @@ clean:
 
 ifneq ($(strip $(DEST)),)
 install: all
-	@cp liblua/lua514.fx2 $(DEST)/data/FeOS/bin/lua514.fx2 || exit 1
-	@cp liblua/lua514.imp.a $(DEST)/data/FeOS/lib/lua514.imp.a || exit 1
+	@cp liblua/lua514.fx2   $(DEST)/data/FeOS/lib/lua514.fx2  || exit 1
 	@cp feoslua/feoslua.fx2 $(DEST)/data/FeOS/bin/feoslua.fx2 || exit 1
 endif
