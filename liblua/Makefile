@@ -23,7 +23,7 @@ FEOSMK = $(FEOSSDK)/mk
 # DATA is a list of directories containing data files
 # INCLUDES is a list of directories containing header files
 #---------------------------------------------------------------------------------
-TARGET        := lua514
+TARGET        := lua52
 BUILD         := build
 SOURCES       := source
 DATA          := data
@@ -32,3 +32,7 @@ INCLUDES      := include
 CONF_DEFINES = -DLUA_FEOSLIB
 
 include $(FEOSMK)/dynlib.mk
+
+install: all
+	@cp $(TARGET).fx2 $(FEOSDEST)/data/FeOS/lib/$(TARGET).fx2 || exit 1
+

@@ -31,6 +31,9 @@ INCLUDES      := include
 
 CONF_DEFINES =
 CONF_LIBDIRS = $(CURDIR)/../liblua
-CONF_LIBS = -llua514
+CONF_LIBS = -llua52
 
 include $(FEOSMK)/app.mk
+
+install: all
+	@cp $(TARGET).fx2 $(FEOSDEST)/data/FeOS/bin/$(TARGET).fx2 || exit 1
