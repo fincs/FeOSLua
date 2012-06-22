@@ -1,5 +1,6 @@
 build/
 lib/
 *.elf
+*.dbg
 *.fx2
 *.a
