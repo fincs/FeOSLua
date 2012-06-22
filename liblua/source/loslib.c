@@ -75,7 +75,6 @@
 
 #endif
 
-#ifndef FEOS
 static int os_execute (lua_State *L) {
   const char *cmd = luaL_optstring(L, 1, NULL);
   int stat = system(cmd);
@@ -86,7 +85,6 @@ static int os_execute (lua_State *L) {
     return 1;
   }
 }
-#endif
 
 
 static int os_remove (lua_State *L) {
@@ -309,8 +307,8 @@ static const luaL_Reg syslib[] = {
   {"date",      os_date},
 #ifndef FEOS
   {"difftime",  os_difftime},
-  {"execute",   os_execute},
 #endif
+  {"execute",   os_execute},
   {"exit",      os_exit},
 #ifndef FEOS
   {"getenv",    os_getenv},
