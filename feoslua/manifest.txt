@@ -1,8 +1,9 @@
 ; Test manifest file
 
-Title: Lua support library
+Title: Lua for FeOS
 Author: Lua team, fincs <fincs@mtheall.com>
 Copyright: 1994-2012 Lua.org, PUC-Rio
 Description: Lua is a powerful, fast, lightweight, embeddable scripting language.
+Depends: liblua-5.2 (>= 5.2.1)
 Version: 5.2.1
 License: MIT

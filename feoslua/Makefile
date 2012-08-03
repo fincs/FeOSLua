@@ -29,11 +29,16 @@ SOURCES       := source
 DATA          := data
 INCLUDES      := include
 
+MANIFEST      := manifest.txt
+PACKAGENAME   := $(TARGET)
+
 CONF_DEFINES =
 CONF_LIBDIRS = $(CURDIR)/../liblua
 CONF_LIBS = -llua52
 
 include $(FEOSMK)/app.mk
+include $(FEOSMK)/package.mk
 
 install: all
-	@cp $(TARGET).fx2 $(FEOSDEST)/data/FeOS/bin/$(TARGET).fx2 || exit 1
+	@mkdir -p $(FEOSDEST)/data/FeOS/bin
+	@cp $(TARGET).fx2 $(FEOSDEST)/data/FeOS/bin/$(TARGET).fx2

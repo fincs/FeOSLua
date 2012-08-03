@@ -4,3 +4,4 @@ lib/
 *.dbg
 *.fx2
 *.a
+*.fpkg

@@ -29,10 +29,14 @@ SOURCES       := source
 DATA          := data
 INCLUDES      := include
 
+MANIFEST      := manifest.txt
+PACKAGENAME   := liblua-5.2
+
 CONF_DEFINES = -DLUA_FEOSLIB
 
 include $(FEOSMK)/dynlib.mk
+include $(FEOSMK)/package.mk
 
 install: all
-	@cp $(TARGET).fx2 $(FEOSDEST)/data/FeOS/lib/$(TARGET).fx2 || exit 1
-
+	@mkdir -p $(FEOSDEST)/data/FeOS/lib
+	@cp $(TARGET).fx2 $(FEOSDEST)/data/FeOS/lib/$(TARGET).fx2
