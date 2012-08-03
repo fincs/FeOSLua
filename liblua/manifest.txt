@@ -1,0 +1,7 @@
+; Test manifest file
+
+Title: Lua support library
+Author: Lua team, fincs <fincs@mtheall.com>
+Description: Lua is a powerful, fast, lightweight, embeddable scripting language.
+Version: 5.2.1
+License: MIT
