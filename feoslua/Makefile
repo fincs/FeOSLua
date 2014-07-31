@@ -23,11 +23,12 @@ FEOSMK = $(FEOSSDK)/mk
 # DATA is a list of directories containing data files
 # INCLUDES is a list of directories containing header files
 #---------------------------------------------------------------------------------
-TARGET        := feoslua
+TARGET        := lua
 BUILD         := build
 SOURCES       := source
 DATA          := data
 INCLUDES      := include
+FILETYPES     := filetypes.cfg
 
 MANIFEST      := manifest.txt
 PACKAGENAME   := $(TARGET)
@@ -41,4 +42,9 @@ include $(FEOSMK)/package.mk
 
 install: all
 	@mkdir -p $(FEOSDEST)/data/FeOS/bin
+	@mkdir -p $(FEOSDEST)/data/FeOS/gui/ftypes
 	@cp $(TARGET).fx2 $(FEOSDEST)/data/FeOS/bin/$(TARGET).fx2
+	@cp $(FILETYPES) $(FEOSDEST)/data/FeOS/gui/ftypes/feoslua.cfg
+	@grit apptile.png -ftr -fh! -gb -gB16 -gT! -gzl -p! -o $(FEOSDEST)/data/FeOS/gui/feoslua.grf
+	@grit fileicon.png -ftr -fh! -gb -gB16 -gT7FFE -gzl -p! -o $(FEOSDEST)/data/FeOS/gui/ftypes/feoslua.grf
+	@fmantool application.manifest $(FEOSDEST)/data/FeOS/gui/feoslua.app

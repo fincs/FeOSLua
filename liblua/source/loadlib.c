@@ -219,23 +219,23 @@ static lua_CFunction ll_sym (lua_State *L, void *lib, const char *sym) {
 #include <feos.h>
 
 static void ll_unloadlib (void *lib) {
-  FeOS_FreeModule((instance_t) lib);
+  LdrFreeModule((module_t) lib);
 }
 
 
 static void *ll_load (lua_State *L, const char *path, int seeglb) {
-  instance_t hInst = FeOS_LoadModule(path);
-  if (!hInst)
+  module_t hMod = LdrLoadModule(path);
+  if (!hMod)
   {
     lua_pushliteral(L, "Can't load library!");
     return NULL;
   }
-  return (void*) hInst;
+  return (void*) hMod;
 }
 
 
 static lua_CFunction ll_sym (lua_State *L, void *lib, const char *sym) {
-  lua_CFunction psym = (lua_CFunction) FeOS_FindSymbol((instance_t) lib, sym);
+  lua_CFunction psym = (lua_CFunction) LdrFindSymbol((module_t) lib, sym);
   if (!psym)
   {
     lua_pushfstring(L, "Symbol " LUA_QS " not found!", sym);
